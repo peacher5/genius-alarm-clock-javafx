@@ -1,0 +1,30 @@
+@font-face {
+    src: url("../fonts/RSU_BOLD.ttf");
+}
+
+@font-face {
+    src: url("../fonts/RSU_Regular.ttf");
+}
+
+.root {
+    -fx-font-family: "RSU";
+    -fx-font-size: 16px;
+}
+
+.app-bar {
+    -fx-background-color: #404040;
+}
+
+.round-button {
+    -fx-background-color: #FDFDFD;
+    -fx-background-radius: 17px;
+    -fx-font-weight: bold;
+}
+
+.round-button:hover {
+    -fx-background-color: #eeeeee;
+}
+
+.round-button:pressed {
+    -fx-background-color: #d5d5d5;
+}
