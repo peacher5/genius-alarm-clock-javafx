@@ -6,12 +6,17 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class Main extends Application {
+public class App extends Application {
+
+    private static final int WIDTH = 600;
+    private static final int HEIGHT = 360;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("fxml/main.fxml"));
-        primaryStage.setScene(new Scene(root, 640, 330));
+        primaryStage.setScene(new Scene(root, WIDTH, HEIGHT));
+        primaryStage.setMinWidth(WIDTH);
+        primaryStage.setMinHeight(HEIGHT);
         primaryStage.show();
     }
 

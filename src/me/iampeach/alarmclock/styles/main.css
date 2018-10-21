@@ -1,3 +1,5 @@
+@import url("scroll_bar.css");
+
 @font-face {
     src: url("../fonts/RSU_BOLD.ttf");
 }
@@ -13,6 +15,11 @@
 
 .app-bar {
     -fx-background-color: #404040;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 8, 0, 0, 3);
+}
+
+.alarm-container {
+    -fx-background-color: #FCFCFC;
 }
 
 .round-button {
@@ -22,9 +29,70 @@
 }
 
 .round-button:hover {
-    -fx-background-color: #eeeeee;
+    -fx-background-color: #e7e7e7;
 }
 
 .round-button:pressed {
     -fx-background-color: #d5d5d5;
+}
+
+.round-button .label {
+    -fx-text-fill: #555555;
+    -fx-padding: 3px 2px 0 0;
+}
+
+.alarm-list-item {
+    -fx-background-color: #F7F7F7;
+}
+
+.alarm-list-item-time {
+    -fx-text-fill: #4B4B4B;
+    -fx-font-size: 46px;
+}
+
+.alarm-list-item-title {
+    -fx-text-fill: #707070;
+    -fx-font-size: 18px;
+}
+
+.alarm-list-item-date-wrapper {
+    -fx-background-color: #FDFDFD;
+    -fx-background-radius: 17px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 6, 0, 0, 2);
+}
+
+.alarm-list-item-date-wrapper .label {
+    -fx-text-fill: #4B4B4B;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.action-button-label {
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.delete-button {
+    -fx-background-color: #D04747;
+}
+
+.delete-button:hover {
+    -fx-background-color: #C44040;
+}
+
+.delete-button:pressed {
+    -fx-background-color: #B53636;
+}
+
+.edit-button {
+    -fx-background-color: #53C3F5;
+}
+
+.edit-button:hover {
+    -fx-background-color: #48B8EA;
+}
+
+.edit-button:pressed {
+    -fx-background-color: #3FA8D6;
 }
