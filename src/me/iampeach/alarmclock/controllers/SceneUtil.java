@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class SceneUtil {
     private static final int WIDTH = 600;
-    private static final int HEIGHT = 360;
+    private static final int HEIGHT = 350;
 
     private SceneUtil() {
     }

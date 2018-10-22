@@ -47,7 +47,7 @@ public class AlarmItemList {
                 if (item instanceof OnceAlarmItem)
                     line = String.format("once,%s,%s", ((OnceAlarmItem) item).getDateTime().toString(), item.getTitle());
                 else {
-                    line = String.format("repeat,%02d:%02d,%s,%s", item.getHour(), item.getMinute(), toDoWFormat((RepeatAlarmItem) item), item.getTitle());
+                    line = String.format("repeat,%s,%s,%s", item.getTimeText(), toDoWFormat((RepeatAlarmItem) item), item.getTitle());
                 }
                 writer.write(line);
                 writer.newLine();
@@ -60,7 +60,7 @@ public class AlarmItemList {
     private String toDoWFormat(RepeatAlarmItem repeatAlarmItem) {
         StringBuilder result = new StringBuilder();
         for (DayOfWeek day : DayOfWeek.values())
-            if (repeatAlarmItem.repeatContains(day))
+            if (repeatAlarmItem.repeatsContains(day))
                 result.append(day.getValue());
         return result.toString();
     }

@@ -100,7 +100,7 @@ public class AlarmFormController {
             DayOfWeek day = DayOfWeek.of(i + 1);
             DaySelectorButton button = new DaySelectorButton(day);
             button.setOnMouseClicked(event -> button.setSelected(!button.isSelected()));
-            if (alarmItem instanceof RepeatAlarmItem && ((RepeatAlarmItem) alarmItem).repeatContains(day))
+            if (alarmItem instanceof RepeatAlarmItem && ((RepeatAlarmItem) alarmItem).repeatsContains(day))
                 button.setSelected(true);
             daysContainer.getChildren().add(button);
             daySelectorButtons[i] = button;
