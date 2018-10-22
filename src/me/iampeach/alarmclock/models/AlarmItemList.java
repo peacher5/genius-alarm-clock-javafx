@@ -1,5 +1,8 @@
 package me.iampeach.alarmclock.models;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -13,7 +16,7 @@ import java.util.stream.Stream;
 
 public class AlarmItemList {
     private static final String filePath = "alarms.dat";
-    private static ArrayList<AlarmItem> alarmItems = new ArrayList<>();
+    private static ObservableList<AlarmItem> alarmItems = FXCollections.observableList(new ArrayList<>());
     private static AlarmItemList instance;
 
     private AlarmItemList() {
@@ -35,7 +38,7 @@ public class AlarmItemList {
         write();
     }
 
-    public ArrayList<AlarmItem> getAll() {
+    public ObservableList<AlarmItem> getList() {
         read();
         return alarmItems;
     }
@@ -46,9 +49,8 @@ public class AlarmItemList {
                 String line;
                 if (item instanceof OnceAlarmItem)
                     line = String.format("once,%s,%s", ((OnceAlarmItem) item).getDateTime().toString(), item.getTitle());
-                else {
+                else
                     line = String.format("repeat,%s,%s,%s", item.getTimeText(), toDoWFormat((RepeatAlarmItem) item), item.getTitle());
-                }
                 writer.write(line);
                 writer.newLine();
             }
@@ -65,7 +67,7 @@ public class AlarmItemList {
         return result.toString();
     }
 
-    private HashSet<DayOfWeek> toRepeats(String dowFormat) {
+    private HashSet<DayOfWeek> toRepeatsSet(String dowFormat) {
         HashSet<DayOfWeek> repeats = new HashSet<>();
         for (int i = 0; i < dowFormat.length(); i++) {
             int dayNo = Integer.parseInt(dowFormat.charAt(i) + "");
@@ -82,7 +84,7 @@ public class AlarmItemList {
                 if (parts.length == 3)
                     alarmItems.add(new OnceAlarmItem(parts[2], LocalDateTime.parse(parts[1])));
                 else if (parts.length == 4)
-                    alarmItems.add(new RepeatAlarmItem(parts[3], LocalTime.parse(parts[1]), toRepeats(parts[2])));
+                    alarmItems.add(new RepeatAlarmItem(parts[3], LocalTime.parse(parts[1]), toRepeatsSet(parts[2])));
             });
         } catch (IOException e) {
             // File not found

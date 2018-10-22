@@ -1,5 +1,6 @@
 package me.iampeach.alarmclock.controllers;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
@@ -12,7 +13,6 @@ import me.iampeach.alarmclock.models.OnceAlarmItem;
 import me.iampeach.alarmclock.models.RepeatAlarmItem;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
@@ -21,17 +21,15 @@ public class MainController implements Initializable {
     @FXML
     private VBox alarmContainer;
 
-    private RoundButton addButton = new RoundButton("เพิ่ม", ComponentUtil.getImagePath("alarm_add.png"));
-    private RoundButton settingsButton = new RoundButton(ComponentUtil.getImagePath("settings.png"));
-    private ItemListCountLabel itemListCountLabel = new ItemListCountLabel();
-    private ArrayList<AlarmItem> alarmItems = AlarmItemList.getInstance().getAll();
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initUI();
     }
 
     private void initUI() {
+        RoundButton addButton = new RoundButton("เพิ่ม", ComponentUtil.getImagePath("alarm_add.png"));
+        RoundButton settingsButton = new RoundButton(ComponentUtil.getImagePath("settings.png"));
+
         AppBar appBar = new AppBar();
         appBar.addButton(addButton);
         appBar.addButton(settingsButton);
@@ -40,9 +38,10 @@ public class MainController implements Initializable {
         addButton.setOnMouseClicked(event -> onAddButtonClick());
         settingsButton.setOnMouseClicked(event -> onSettingsButtonClick());
 
+        ObservableList<AlarmItem> alarmItems = AlarmItemList.getInstance().getList();
         alarmItems.forEach(item -> alarmContainer.getChildren().add(createAlarmListItem(item)));
 
-        itemListCountLabel.update(alarmItems.size());
+        ItemListCountLabel itemListCountLabel = new ItemListCountLabel(alarmItems);
         alarmContainer.getChildren().add(itemListCountLabel);
     }
 
@@ -57,7 +56,6 @@ public class MainController implements Initializable {
         alarmListItem.setOnDeleteListener(() -> {
             alarmContainer.getChildren().remove(alarmListItem);
             AlarmItemList.getInstance().remove(item);
-            itemListCountLabel.update(alarmItems.size());
         });
 
         return alarmListItem;
