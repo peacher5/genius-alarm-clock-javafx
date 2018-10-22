@@ -1,0 +1,37 @@
+.form-grid .label {
+    -fx-text-fill: #585858;
+    -fx-font-size: 18px;
+    -fx-translate-y: 2px;
+}
+
+.form-grid .choice-box .menu-item:focused > .label {
+    -fx-text-fill: white;
+}
+
+#alarm-form-time-colon {
+    -fx-translate-y: 0;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+}
+
+.day-selector-button {
+    -fx-background-radius: 18px;
+    -fx-border-radius: 18px;
+    -fx-border-color: #D6D6D6;
+    -fx-border-width: 3px;
+}
+
+.day-selector-button:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.05);
+    -fx-border-color: #a8a8a8;
+}
+
+#day-selector-button-selected {
+    -fx-border-color: #53C3F5;
+}
+
+.day-selector-button .label {
+    -fx-translate-y: -0.5px;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}

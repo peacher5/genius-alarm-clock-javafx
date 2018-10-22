@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            stylesheets="@../styles/main.css" xmlns="http://javafx.com/javafx/10.0.1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.iampeach.alarmclock.controllers.AlarmFormController">
+    <center>
+        <GridPane fx:id="formGrid" alignment="TOP_CENTER" hgap="10.0" styleClass="form-grid"
+                  BorderPane.alignment="CENTER">
+            <columnConstraints>
+                <ColumnConstraints halignment="RIGHT" minWidth="10.0" prefWidth="120.0"/>
+                <ColumnConstraints minWidth="10.0" prefWidth="360.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints prefHeight="30.0"/>
+                <RowConstraints prefHeight="20.0"/>
+                <RowConstraints prefHeight="30.0"/>
+                <RowConstraints prefHeight="20.0"/>
+                <RowConstraints prefHeight="30.0"/>
+                <RowConstraints prefHeight="20.0"/>
+                <RowConstraints prefHeight="30.0"/>
+                <RowConstraints prefHeight="20.0"/>
+                <RowConstraints maxHeight="40.0" prefHeight="40.0"/>
+            </rowConstraints>
+            <children>
+                <Label text="ชื่อ:"/>
+                <Label text="ประเภท:" GridPane.rowIndex="2"/>
+                <Label text="วัน/เดือน/ปี:" GridPane.rowIndex="4"/>
+                <Label text="เวลา:" GridPane.rowIndex="6"/>
+                <Label text="เตือนทุกวัน:" GridPane.rowIndex="8"/>
+                <TextField fx:id="titleTextField" maxWidth="240.0" prefHeight="240.0" GridPane.columnIndex="1"/>
+                <ChoiceBox fx:id="typeChoiceBox" prefWidth="240.0" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                <DatePicker fx:id="datePicker" editable="false" prefWidth="240.0" GridPane.columnIndex="1"
+                            GridPane.rowIndex="4"/>
+                <TextField fx:id="hourTextField" alignment="CENTER" maxWidth="40.0" prefHeight="40.0"
+                           GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+                <TextField fx:id="minuteTextField" alignment="CENTER" maxWidth="40.0" prefHeight="40.0"
+                           GridPane.columnIndex="1" GridPane.rowIndex="6">
+                    <GridPane.margin>
+                        <Insets left="60.0"/>
+                    </GridPane.margin>
+                </TextField>
+                <Label id="alarm-form-time-colon" text=":" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                    <GridPane.margin>
+                        <Insets left="47.0"/>
+                    </GridPane.margin>
+                </Label>
+                <HBox fx:id="daysContainer" alignment="CENTER_LEFT" prefHeight="100.0" spacing="12.0"
+                      GridPane.columnIndex="1" GridPane.rowIndex="8"/>
+            </children>
+            <padding>
+                <Insets top="40.0"/>
+            </padding>
+        </GridPane>
+    </center>
+</BorderPane>

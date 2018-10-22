@@ -6,6 +6,10 @@ import javafx.scene.layout.Pane;
 import java.io.IOException;
 
 public class ComponentUtil {
+
+    private ComponentUtil() {
+    }
+
     static void loadFXML(Pane pane, String fileName) {
         FXMLLoader loader = new FXMLLoader(ComponentUtil.class.getResource("/me/iampeach/alarmclock/fxml/" + fileName));
         loader.setRoot(pane);
@@ -18,7 +22,7 @@ public class ComponentUtil {
         }
     }
 
-    static String getImagePath(String fileName) {
+    public static String getImagePath(String fileName) {
         return "me/iampeach/alarmclock/images/" + fileName;
     }
 }

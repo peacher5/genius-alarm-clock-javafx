@@ -12,15 +12,21 @@ public class RoundButton extends HBox {
 
     private Label textLabel;
 
-    public RoundButton(String text, String iconPath) {
+    public RoundButton(String text, String iconPath, boolean isPrimary) {
         ComponentUtil.loadFXML(this, "round_button.fxml");
         if (text != null)
             setText(text);
         iconView.setImage(new Image(iconPath));
+        if (isPrimary)
+            setId("round-button-primary");
+    }
+
+    public RoundButton(String text, String iconPath) {
+        this(text, iconPath, false);
     }
 
     public RoundButton(String iconPath) {
-        this(null, iconPath);
+        this(null, iconPath, false);
     }
 
     public void setText(String text) {
