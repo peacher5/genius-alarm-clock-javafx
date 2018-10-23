@@ -7,7 +7,7 @@ import me.iampeach.alarmclock.models.AlarmItem;
 
 import java.io.IOException;
 
-public class SceneUtil {
+public final class SceneUtil {
     private static final int WIDTH = 600;
     private static final int HEIGHT = 350;
 
@@ -17,7 +17,7 @@ public class SceneUtil {
     public static void loadMainScene(Stage window) {
         setScene(getLoader("../fxml/main_scene.fxml"), window);
         window.setMinWidth(WIDTH);
-        window.setMinHeight(HEIGHT);
+        window.setMinHeight(HEIGHT + 22);
     }
 
     public static void loadAlarmFormScene(Stage window, AlarmItem alarmItem) {

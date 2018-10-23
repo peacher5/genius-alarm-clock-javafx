@@ -5,7 +5,7 @@ import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 
-public class ComponentUtil {
+public final class ComponentUtil {
 
     private ComponentUtil() {
     }

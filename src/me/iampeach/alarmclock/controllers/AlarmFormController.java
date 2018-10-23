@@ -50,9 +50,6 @@ public class AlarmFormController {
     }
 
     public void initUI() {
-        if (alarmItem == null)
-            alarmItem = new OnceAlarmItem("ตั้งปลุก", LocalDateTime.now());
-
         saveButton = new RoundButton("บันทึก", ComponentUtil.getImagePath("save.png"), true);
         cancelButton = new RoundButton("ยกเลิก", ComponentUtil.getImagePath("cancel.png"));
 
@@ -68,11 +65,15 @@ public class AlarmFormController {
             if (newValue.length() > 30)
                 titleTextField.setText(oldValue);
         });
-        titleTextField.setText(alarmItem.getTitle());
+
+        if (alarmItem == null)
+            titleTextField.setText("ตั้งปลุก");
+        else
+            titleTextField.setText(alarmItem.getTitle());
 
         // Init type selector
         typeChoiceBox.getItems().addAll("เตือนครั้งเดียว", "เตือนซ้ำทุกสัปดาห์");
-        if (alarmItem instanceof OnceAlarmItem)
+        if (alarmItem == null || alarmItem instanceof OnceAlarmItem)
             typeChoiceBox.getSelectionModel().selectFirst();
         else
             typeChoiceBox.getSelectionModel().selectLast();
@@ -91,8 +92,8 @@ public class AlarmFormController {
                 minuteTextField.setText(oldValue);
         });
 
-        String hour = String.format("%02d", alarmItem.getHour());
-        String minute = String.format("%02d", alarmItem.getMinute() + 1);
+        String hour = String.format("%02d", alarmItem == null ? LocalTime.now().getHour() : alarmItem.getHour());
+        String minute = String.format("%02d", alarmItem == null ? LocalTime.now().getMinute() + 1 : alarmItem.getMinute() + 1);
         hourTextField.setText(hour);
         minuteTextField.setText(minute);
 

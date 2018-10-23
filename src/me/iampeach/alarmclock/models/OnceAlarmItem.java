@@ -2,7 +2,9 @@ package me.iampeach.alarmclock.models;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.TextStyle;
+import java.util.Date;
 import java.util.Locale;
 
 public class OnceAlarmItem extends AlarmItem {
@@ -11,6 +13,7 @@ public class OnceAlarmItem extends AlarmItem {
     public OnceAlarmItem(String title, LocalDateTime dateTime) {
         super(title);
         this.dateTime = dateTime;
+        task = new AlarmTask(title + " - " + getTimeText());
     }
 
     public LocalDateTime getDateTime() {
@@ -36,5 +39,10 @@ public class OnceAlarmItem extends AlarmItem {
     @Override
     public int getMinute() {
         return dateTime.getMinute();
+    }
+
+    @Override
+    public Date getUpcomingDateTime() {
+        return Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant());
     }
 }

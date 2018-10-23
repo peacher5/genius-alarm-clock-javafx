@@ -4,6 +4,7 @@ import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Locale;
 
@@ -15,6 +16,7 @@ public class RepeatAlarmItem extends AlarmItem {
         super(title);
         this.time = time;
         this.repeats = repeats;
+        task = new AlarmTask(title + " - " + getTimeText());
     }
 
     public boolean repeatsContains(DayOfWeek day) {
@@ -37,5 +39,11 @@ public class RepeatAlarmItem extends AlarmItem {
     @Override
     public int getMinute() {
         return time.getMinute();
+    }
+
+    @Override
+    public Date getUpcomingDateTime() {
+        // TODO
+        return null;
     }
 }

@@ -16,10 +16,13 @@ import java.util.stream.Stream;
 
 public class AlarmItemList {
     private static final String filePath = "alarms.dat";
-    private static ObservableList<AlarmItem> alarmItems = FXCollections.observableList(new ArrayList<>());
     private static AlarmItemList instance;
 
+    private ObservableList<AlarmItem> alarmItems = FXCollections.observableList(new ArrayList<>());
+
     private AlarmItemList() {
+        read();
+        alarmItems.forEach(AlarmItem::activateAlarm);
     }
 
     public static AlarmItemList getInstance() {
@@ -29,18 +32,23 @@ public class AlarmItemList {
     }
 
     public void add(AlarmItem item) {
+        item.activateAlarm();
         alarmItems.add(item);
         write();
     }
 
     public void remove(AlarmItem item) {
+        item.cancelAlarm();
         alarmItems.remove(item);
         write();
     }
 
     public ObservableList<AlarmItem> getList() {
-        read();
         return alarmItems;
+    }
+
+    public void cancelAlarmTasks() {
+        alarmItems.forEach(AlarmItem::cancelAlarm);
     }
 
     private void write() {
@@ -81,13 +89,16 @@ public class AlarmItemList {
         try (Stream<String> stream = Files.lines(Paths.get(filePath))) {
             stream.forEach(line -> {
                 String[] parts = line.split(",");
-                if (parts.length == 3)
-                    alarmItems.add(new OnceAlarmItem(parts[2], LocalDateTime.parse(parts[1])));
-                else if (parts.length == 4)
+                if (parts.length == 3) {
+                    LocalDateTime dateTime = LocalDateTime.parse(parts[1]);
+                    // Ignore if an alarm is passed
+                    if (!dateTime.isBefore(LocalDateTime.now()))
+                        alarmItems.add(new OnceAlarmItem(parts[2], dateTime));
+                } else if (parts.length == 4)
                     alarmItems.add(new RepeatAlarmItem(parts[3], LocalTime.parse(parts[1]), toRepeatsSet(parts[2])));
             });
         } catch (IOException e) {
-            // File not found
+            // Do nothing if file not found
         }
     }
 }

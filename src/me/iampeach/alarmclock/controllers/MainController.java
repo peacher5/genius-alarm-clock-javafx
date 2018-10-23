@@ -21,6 +21,8 @@ public class MainController implements Initializable {
     @FXML
     private VBox alarmContainer;
 
+    private ObservableList<AlarmItem> alarmItems = AlarmItemList.getInstance().getList();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initUI();
@@ -38,11 +40,9 @@ public class MainController implements Initializable {
         addButton.setOnMouseClicked(event -> onAddButtonClick());
         settingsButton.setOnMouseClicked(event -> onSettingsButtonClick());
 
-        ObservableList<AlarmItem> alarmItems = AlarmItemList.getInstance().getList();
         alarmItems.forEach(item -> alarmContainer.getChildren().add(createAlarmListItem(item)));
 
-        ItemListCountLabel itemListCountLabel = new ItemListCountLabel(alarmItems);
-        alarmContainer.getChildren().add(itemListCountLabel);
+        alarmContainer.getChildren().add(new ItemListCountLabel(alarmItems));
     }
 
     private AlarmListItem createAlarmListItem(AlarmItem item) {
