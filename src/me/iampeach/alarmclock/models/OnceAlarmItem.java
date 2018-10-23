@@ -13,7 +13,7 @@ public class OnceAlarmItem extends AlarmItem {
     public OnceAlarmItem(String title, LocalDateTime dateTime) {
         super(title);
         this.dateTime = dateTime;
-        task = new AlarmTask(title + " - " + getTimeText());
+        setTask(new AlarmTask(title + " - " + getTimeText()));
     }
 
     public LocalDateTime getDateTime() {

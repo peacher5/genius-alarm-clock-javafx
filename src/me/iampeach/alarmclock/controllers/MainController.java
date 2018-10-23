@@ -53,12 +53,17 @@ public class MainController implements Initializable {
             date = ((RepeatAlarmItem) item).getRepeatsText();
 
         AlarmListItem alarmListItem = new AlarmListItem(item.getTitle(), item.getTimeText(), date);
-        alarmListItem.setOnDeleteListener(() -> {
-            alarmContainer.getChildren().remove(alarmListItem);
-            AlarmItemList.getInstance().remove(item);
-        });
+        alarmListItem.setOnDeleteListener(() -> removeItem(alarmListItem, item));
+
+        if (item instanceof OnceAlarmItem)
+            item.getTask().setOnTaskExecute(() -> removeItem(alarmListItem, item));
 
         return alarmListItem;
+    }
+
+    private void removeItem(AlarmListItem alarmListItem, AlarmItem alarmItem) {
+        alarmContainer.getChildren().remove(alarmListItem);
+        AlarmItemList.getInstance().remove(alarmItem);
     }
 
     private void onAddButtonClick() {

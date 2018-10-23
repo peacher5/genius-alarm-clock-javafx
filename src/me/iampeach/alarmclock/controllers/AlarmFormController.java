@@ -66,10 +66,7 @@ public class AlarmFormController {
                 titleTextField.setText(oldValue);
         });
 
-        if (alarmItem == null)
-            titleTextField.setText("ตั้งปลุก");
-        else
-            titleTextField.setText(alarmItem.getTitle());
+        titleTextField.setText(alarmItem == null ? "ตั้งปลุก" : alarmItem.getTitle());
 
         // Init type selector
         typeChoiceBox.getItems().addAll("เตือนครั้งเดียว", "เตือนซ้ำทุกสัปดาห์");
@@ -174,7 +171,7 @@ public class AlarmFormController {
                     repeats.add(button.getDay());
             if (repeats.isEmpty()) {
                 // TODO: alert
-                System.out.println("invalid repeats");
+                System.out.println("Repeat days cannot be empty");
                 return;
             }
             AlarmItemList.getInstance().add(new RepeatAlarmItem(title, LocalTime.of(hour, minute), repeats));

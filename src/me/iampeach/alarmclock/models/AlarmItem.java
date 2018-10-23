@@ -6,7 +6,7 @@ import java.util.Timer;
 public abstract class AlarmItem {
     private String title;
     private Timer timer = new Timer();
-    protected AlarmTask task;
+    private AlarmTask task;
 
     public AlarmItem(String title) {
         this.title = title;
@@ -20,12 +20,19 @@ public abstract class AlarmItem {
         return String.format("%02d:%02d", getHour(), getMinute());
     }
 
+    public void setTask(AlarmTask task) {
+        this.task = task;
+    }
+
+    public AlarmTask getTask() {
+        return task;
+    }
+
     public void activateAlarm() {
         timer.schedule(task, getUpcomingDateTime());
     }
 
     public void cancelAlarm() {
-        task.cancel();
         timer.cancel();
     }
 

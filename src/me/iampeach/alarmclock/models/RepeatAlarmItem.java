@@ -1,7 +1,6 @@
 package me.iampeach.alarmclock.models;
 
-import java.time.DayOfWeek;
-import java.time.LocalTime;
+import java.time.*;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,8 +14,14 @@ public class RepeatAlarmItem extends AlarmItem {
     public RepeatAlarmItem(String title, LocalTime time, HashSet<DayOfWeek> repeats) {
         super(title);
         this.time = time;
+
+        if (repeats.isEmpty())
+            throw new IllegalArgumentException("Repeat days cannot be empty");
         this.repeats = repeats;
-        task = new AlarmTask(title + " - " + getTimeText());
+
+        AlarmTask task = new AlarmTask(title + " - " + getTimeText());
+        task.setOnTaskExecute(this::activateAlarm);
+        setTask(task);
     }
 
     public boolean repeatsContains(DayOfWeek day) {
@@ -43,7 +48,19 @@ public class RepeatAlarmItem extends AlarmItem {
 
     @Override
     public Date getUpcomingDateTime() {
-        // TODO
-        return null;
+        LocalDate dateNow = LocalDate.now();
+        LocalDate result = null;
+        for (DayOfWeek day : DayOfWeek.values()) {
+            if (repeats.contains(day)) {
+                result = dateNow.with(day);
+                if (!result.isBefore(dateNow)) {
+                    LocalTime timeNow = LocalTime.now();
+                    if (!time.isBefore(timeNow))
+                        break;
+                }
+            }
+        }
+        LocalDateTime upcoming = LocalDateTime.of(result, time);
+        return Date.from(upcoming.atZone(ZoneId.systemDefault()).toInstant());
     }
 }
