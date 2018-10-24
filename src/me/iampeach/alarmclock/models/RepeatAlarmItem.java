@@ -30,10 +30,17 @@ public class RepeatAlarmItem extends AlarmItem {
 
     public String getRepeatsText() {
         ArrayList<String> days = new ArrayList<>();
-        for (DayOfWeek day : DayOfWeek.values())
-            if (repeatsContains(day))
-                days.add(day.getDisplayName(TextStyle.SHORT, new Locale("th")).replace(".", ""));
+        for (DayOfWeek day : getSortedRepeatDays())
+            days.add(day.getDisplayName(TextStyle.SHORT, new Locale("th")).replace(".", ""));
         return String.join(", ", days);
+    }
+
+    public ArrayList<DayOfWeek> getSortedRepeatDays() {
+        ArrayList<DayOfWeek> list = new ArrayList<>();
+        for (DayOfWeek day : DayOfWeek.values())
+            if (repeats.contains(day))
+                list.add(day);
+        return list;
     }
 
     @Override
@@ -49,18 +56,30 @@ public class RepeatAlarmItem extends AlarmItem {
     @Override
     public Date getUpcomingDateTime() {
         LocalDate dateNow = LocalDate.now();
-        LocalDate result = null;
-        for (DayOfWeek day : DayOfWeek.values()) {
-            if (repeats.contains(day)) {
-                result = dateNow.with(day);
-                if (!result.isBefore(dateNow)) {
-                    LocalTime timeNow = LocalTime.now();
-                    if (!time.isBefore(timeNow))
+        LocalDate upcomingDate = null;
+        ArrayList<DayOfWeek> sortedRepeatDays = getSortedRepeatDays();
+
+        for (DayOfWeek day : sortedRepeatDays) {
+            LocalDate result = dateNow.with(day);
+            if (!result.isBefore(dateNow)) {
+                LocalTime timeNow = LocalTime.now();
+                if (result.equals(dateNow)) {
+                    if (!time.isBefore(timeNow)) {
+                        upcomingDate = result;
                         break;
+                    }
+                } else {
+                    upcomingDate = result;
+                    break;
                 }
             }
         }
-        LocalDateTime upcoming = LocalDateTime.of(result, time);
+
+        // In case of upcoming day is in the next week
+        if (upcomingDate == null)
+            upcomingDate = dateNow.with(sortedRepeatDays.get(0)).plusWeeks(1);
+
+        LocalDateTime upcoming = LocalDateTime.of(upcomingDate, time);
         return Date.from(upcoming.atZone(ZoneId.systemDefault()).toInstant());
     }
 }

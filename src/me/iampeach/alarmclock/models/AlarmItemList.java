@@ -69,9 +69,8 @@ public class AlarmItemList {
 
     private String toDoWFormat(RepeatAlarmItem repeatAlarmItem) {
         StringBuilder result = new StringBuilder();
-        for (DayOfWeek day : DayOfWeek.values())
-            if (repeatAlarmItem.repeatsContains(day))
-                result.append(day.getValue());
+        for (DayOfWeek day : repeatAlarmItem.getSortedRepeatDays())
+            result.append(day.getValue());
         return result.toString();
     }
 
