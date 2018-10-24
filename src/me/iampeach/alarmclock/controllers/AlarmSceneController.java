@@ -52,9 +52,11 @@ public class AlarmSceneController implements SceneController {
         answerContainer.getChildren().add(answerButton);
 
         // Play alarm sound
-        Media media = new Media(getClass().getResource("../sounds/alarm.mp3").toString());
-        mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.play();
+        if (!title.getText().equals("Math Challenges")) {
+            Media media = new Media(getClass().getResource("../sounds/alarm.mp3").toString());
+            mediaPlayer = new MediaPlayer(media);
+            mediaPlayer.play();
+        }
     }
 
     private void onAnswer() {

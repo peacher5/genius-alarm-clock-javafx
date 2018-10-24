@@ -1,5 +1,5 @@
 .about-app-container {
-    -fx-background-color: #efefef;
+    -fx-background-color: #f5f5f5;
     -fx-background-radius: 100px;
 }
 
@@ -34,7 +34,7 @@
 }
 
 .about-javafx-text {
-    -fx-text-fill: #DDDDDD;
+    -fx-text-fill: #cfcfcf;
     -fx-font-size: 18px;
     -fx-font-weight: bold;
 }

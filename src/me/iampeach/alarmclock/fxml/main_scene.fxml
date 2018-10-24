@@ -11,7 +11,7 @@
        <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" styleClass="edge-to-edge"
                    BorderPane.alignment="CENTER">
          <content>
-             <VBox fx:id="alarmContainer" alignment="TOP_CENTER" spacing="12.0" styleClass="alarm-container">
+             <VBox fx:id="alarmContainer" alignment="TOP_CENTER" spacing="12.0" styleClass="container">
                <padding>
                   <Insets bottom="12.0" top="12.0" />
                </padding></VBox>

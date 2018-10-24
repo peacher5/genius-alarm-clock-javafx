@@ -5,7 +5,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="350.0" prefWidth="600.0" stylesheets="@../styles/main.css"
+            prefHeight="350.0" prefWidth="600.0" stylesheets="@../styles/main.css" styleClass="container"
             xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="me.iampeach.alarmclock.controllers.AboutSceneController">
     <bottom>
