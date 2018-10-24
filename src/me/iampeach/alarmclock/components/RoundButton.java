@@ -29,7 +29,7 @@ public class RoundButton extends HBox {
         this(null, icon, false);
     }
 
-    public void setText(String text) {
+    private void setText(String text) {
         if (textLabel == null) {
             textLabel = new Label(text);
             getChildren().add(textLabel);

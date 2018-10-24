@@ -12,7 +12,7 @@ public class ItemListCountLabel extends Label {
         alarmItems.addListener((ListChangeListener<? super AlarmItem>) c -> update(alarmItems.size()));
     }
 
-    public void update(int count) {
+    private void update(int count) {
         setText(count + " รายการ");
     }
 }

@@ -20,7 +20,7 @@ public class MainSceneController {
     private ObservableList<AlarmItem> alarmItems = AlarmItemList.getInstance().getList();
     private Stage window;
 
-    public void initUI() {
+    void initUI() {
         window = (Stage) root.getScene().getWindow();
 
         RoundButton addButton = new RoundButton("เพิ่ม", ComponentUtil.getImage("alarm_add.png"));

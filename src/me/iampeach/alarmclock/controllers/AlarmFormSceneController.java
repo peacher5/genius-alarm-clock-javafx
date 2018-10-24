@@ -45,11 +45,11 @@ public class AlarmFormSceneController {
     private DaySelectorButton[] daySelectorButtons = new DaySelectorButton[7];
     private Label errorMessageLabel = new Label();
 
-    public void setAlarmItem(AlarmItem alarmItem) {
+    void setAlarmItem(AlarmItem alarmItem) {
         this.alarmItem = alarmItem;
     }
 
-    public void initUI() {
+    void initUI() {
         saveButton = new RoundButton("บันทึก", ComponentUtil.getImage("save.png"), true);
         cancelButton = new RoundButton("ยกเลิก", ComponentUtil.getImage("cancel.png"));
 
@@ -173,8 +173,11 @@ public class AlarmFormSceneController {
                 showErrorMessage("ไม่สามารถตั้งเวลาที่ผ่านไปแล้วได้");
                 return;
             }
+
+            if (alarmItem != null)
+                AlarmItemList.getInstance().remove(alarmItem);
+
             LocalDateTime dateTime = LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(), hour, minute);
-            AlarmItemList.getInstance().remove(alarmItem);
             AlarmItemList.getInstance().add(new OnceAlarmItem(title, dateTime));
         } else {
             HashSet<DayOfWeek> repeats = new HashSet<>();
@@ -185,7 +188,10 @@ public class AlarmFormSceneController {
                 showErrorMessage("เลือกวันเตือนซ้ำอย่างน้อย 1 วัน");
                 return;
             }
-            AlarmItemList.getInstance().remove(alarmItem);
+
+            if (alarmItem != null)
+                AlarmItemList.getInstance().remove(alarmItem);
+
             AlarmItemList.getInstance().add(new RepeatAlarmItem(title, LocalTime.of(hour, minute), repeats));
         }
 

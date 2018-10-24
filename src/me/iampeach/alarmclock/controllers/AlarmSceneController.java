@@ -30,7 +30,7 @@ public class AlarmSceneController {
         title.setText(text);
     }
 
-    public void initUI() {
+    void initUI() {
         mathProblemLabel.setText(problem.toString() + " =");
 
         answerTextField.textProperty().addListener((ov, oldValue, newValue) -> {

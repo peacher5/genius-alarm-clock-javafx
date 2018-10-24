@@ -8,7 +8,7 @@ public abstract class AlarmItem {
     private Timer timer = new Timer();
     private AlarmTask task;
 
-    public AlarmItem(String title) {
+    AlarmItem(String title) {
         this.title = title;
     }
 
@@ -20,7 +20,7 @@ public abstract class AlarmItem {
         return String.format("%02d:%02d", getHour(), getMinute());
     }
 
-    public void setTask(AlarmTask task) {
+    void setTask(AlarmTask task) {
         this.task = task;
     }
 
@@ -40,5 +40,5 @@ public abstract class AlarmItem {
 
     public abstract int getMinute();
 
-    public abstract Date getUpcomingDateTime();
+    protected abstract Date getUpcomingDateTime();
 }
