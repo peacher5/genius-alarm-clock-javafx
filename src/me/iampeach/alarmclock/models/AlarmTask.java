@@ -1,7 +1,6 @@
 package me.iampeach.alarmclock.models;
 
 import javafx.application.Platform;
-import javafx.stage.Stage;
 import me.iampeach.alarmclock.controllers.SceneUtil;
 
 import java.util.TimerTask;
@@ -23,10 +22,6 @@ public class AlarmTask extends TimerTask {
         if (onTaskExecute != null)
             Platform.runLater(() -> onTaskExecute.run());
 
-        Platform.runLater(() -> {
-            Stage window = new Stage();
-            SceneUtil.loadAlarmScene(window, title);
-            window.show();
-        });
+        Platform.runLater(() -> SceneUtil.launchAlarmWindow(title));
     }
 }

@@ -11,7 +11,7 @@ import me.iampeach.alarmclock.models.AlarmItemList;
 import me.iampeach.alarmclock.models.OnceAlarmItem;
 import me.iampeach.alarmclock.models.RepeatAlarmItem;
 
-public class MainSceneController {
+public class MainSceneController implements SceneController {
     @FXML
     private BorderPane root;
     @FXML
@@ -20,19 +20,20 @@ public class MainSceneController {
     private ObservableList<AlarmItem> alarmItems = AlarmItemList.getInstance().getList();
     private Stage window;
 
-    void initUI() {
+    @Override
+    public void initUI() {
         window = (Stage) root.getScene().getWindow();
 
         RoundButton addButton = new RoundButton("เพิ่ม", ComponentUtil.getImage("alarm_add.png"));
-        RoundButton settingsButton = new RoundButton(ComponentUtil.getImage("settings.png"));
+        RoundButton moreButton = new RoundButton(ComponentUtil.getImage("more.png"));
 
         AppBar appBar = new AppBar();
         appBar.addButton(addButton);
-        appBar.addButton(settingsButton);
+        appBar.addButton(moreButton);
         root.setTop(appBar);
 
         addButton.setOnMouseClicked(event -> onAddButtonClick());
-        settingsButton.setOnMouseClicked(event -> onSettingsButtonClick());
+        moreButton.setOnMouseClicked(event -> onMoreButtonClick());
 
         alarmItems.forEach(item -> alarmContainer.getChildren().add(createAlarmListItem(item)));
 
@@ -65,7 +66,7 @@ public class MainSceneController {
         SceneUtil.loadAlarmFormScene(window);
     }
 
-    private void onSettingsButtonClick() {
-        // TODO
+    private void onMoreButtonClick() {
+        SceneUtil.loadAboutScene(window);
     }
 }

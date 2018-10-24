@@ -12,7 +12,7 @@ import me.iampeach.alarmclock.components.ComponentUtil;
 import me.iampeach.alarmclock.components.RoundButton;
 import me.iampeach.alarmclock.models.MathProblem;
 
-public class AlarmSceneController {
+public class AlarmSceneController implements SceneController {
     @FXML
     private Label title, mathProblemLabel;
     @FXML
@@ -30,7 +30,8 @@ public class AlarmSceneController {
         title.setText(text);
     }
 
-    void initUI() {
+    @Override
+    public void initUI() {
         mathProblemLabel.setText(problem.toString() + " =");
 
         answerTextField.textProperty().addListener((ov, oldValue, newValue) -> {

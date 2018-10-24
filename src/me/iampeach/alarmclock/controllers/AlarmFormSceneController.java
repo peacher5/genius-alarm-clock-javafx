@@ -26,7 +26,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 
-public class AlarmFormSceneController {
+public class AlarmFormSceneController implements SceneController {
     @FXML
     private BorderPane root;
     @FXML
@@ -49,7 +49,8 @@ public class AlarmFormSceneController {
         this.alarmItem = alarmItem;
     }
 
-    void initUI() {
+    @Override
+    public void initUI() {
         saveButton = new RoundButton("บันทึก", ComponentUtil.getImage("save.png"), true);
         cancelButton = new RoundButton("ยกเลิก", ComponentUtil.getImage("cancel.png"));
 

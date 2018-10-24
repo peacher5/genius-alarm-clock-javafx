@@ -10,6 +10,7 @@ public class App extends Application {
     @Override
     public void start(Stage window) {
         SceneUtil.loadMainScene(window);
+        SceneUtil.setMinSize(window);
         window.show();
     }
 

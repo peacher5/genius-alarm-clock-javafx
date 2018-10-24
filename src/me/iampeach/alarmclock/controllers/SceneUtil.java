@@ -8,28 +8,33 @@ import me.iampeach.alarmclock.models.AlarmItem;
 import java.io.IOException;
 
 public final class SceneUtil {
-    private static final int WIDTH = 600;
-    private static final int HEIGHT = 350;
+    public static final int WIDTH = 600;
+    public static final int HEIGHT = 350;
 
     private SceneUtil() {
     }
 
+    public static void launchAlarmWindow(String title) {
+        Stage window = new Stage();
+        SceneUtil.loadAlarmScene(window, title);
+        SceneUtil.setMinSize(window);
+        window.show();
+    }
+
+    public static void setMinSize(Stage window) {
+        window.setMinWidth(SceneUtil.WIDTH);
+        window.setMinHeight(SceneUtil.HEIGHT + 22);
+    }
+
     public static void loadMainScene(Stage window) {
-        FXMLLoader loader = getLoader("../fxml/main_scene.fxml");
-        setScene(loader, window);
-        window.setMinWidth(WIDTH);
-        window.setMinHeight(HEIGHT + 22);
-        MainSceneController controller = loader.getController();
-        controller.initUI();
+        loadScene(window, "main_scene.fxml");
     }
 
     public static void loadAlarmFormScene(Stage window, AlarmItem alarmItem) {
-        FXMLLoader loader = getLoader("../fxml/alarm_form_scene.fxml");
-        setScene(loader, window);
-        AlarmFormSceneController controller = loader.getController();
-        if (alarmItem != null)
-            controller.setAlarmItem(alarmItem);
-        controller.initUI();
+        loadScene(window, "alarm_form_scene.fxml", controller -> {
+            if (alarmItem != null)
+                ((AlarmFormSceneController) controller).setAlarmItem(alarmItem);
+        });
     }
 
     public static void loadAlarmFormScene(Stage window) {
@@ -37,22 +42,30 @@ public final class SceneUtil {
     }
 
     public static void loadAlarmScene(Stage window, String title) {
-        FXMLLoader loader = getLoader("../fxml/alarm_scene.fxml");
-        setScene(loader, window);
-        AlarmSceneController controller = loader.getController();
-        controller.setTitle(title);
-        controller.initUI();
+        loadScene(window, "alarm_scene.fxml", controller -> ((AlarmSceneController) controller).setTitle(title));
     }
 
-    private static void setScene(FXMLLoader viewLoader, Stage window) {
+    public static void loadAboutScene(Stage window) {
+        loadScene(window, "about_scene.fxml");
+    }
+
+    private static void loadScene(Stage window, String fileName, OnInitSceneCallback callback) {
+        FXMLLoader viewLoader = new FXMLLoader(SceneUtil.class.getResource("../fxml/" + fileName));
         try {
             window.setScene(new Scene(viewLoader.load(), WIDTH, HEIGHT));
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        SceneController controller = viewLoader.getController();
+
+        if (callback != null)
+            callback.onInit(controller);
+
+        controller.initUI();
     }
 
-    private static FXMLLoader getLoader(String path) {
-        return new FXMLLoader(SceneUtil.class.getResource(path));
+    private static void loadScene(Stage window, String fileName) {
+        loadScene(window, fileName, null);
     }
 }
