@@ -27,6 +27,7 @@ public class AlarmSceneController implements SceneController {
     private MathProblem problem = new MathProblem();
     private ActionButton answerButton = new ActionButton("ตอบ", ComponentUtil.getImage("send.png"), "answer-button");
     private ActionButton incorrectButton = new ActionButton("ผิด!", ComponentUtil.getImage("incorrect.png"), "incorrect-button");
+    private Stage window;
 
     // Make it global to prevent GC clean this during in the scene
     private MediaPlayer mediaPlayer;
@@ -37,6 +38,8 @@ public class AlarmSceneController implements SceneController {
 
     @Override
     public void initUI() {
+        window = (Stage) root.getScene().getWindow();
+
         mathProblemLabel.setText(problem.toString() + " =");
 
         answerTextField.textProperty().addListener((ov, oldValue, newValue) -> {
@@ -53,9 +56,11 @@ public class AlarmSceneController implements SceneController {
 
         // Play alarm sound
         if (!title.getText().equals("Math Challenges")) {
-            Media media = new Media(getClass().getResource("../sounds/alarm.mp3").toString());
+            Media media = new Media(getClass().getResource("/me/iampeach/alarmclock/sounds/alarm.mp3").toString());
             mediaPlayer = new MediaPlayer(media);
             mediaPlayer.play();
+            // Stop sound when close the window
+            window.setOnHiding(event -> mediaPlayer.stop());
         }
     }
 
@@ -68,8 +73,6 @@ public class AlarmSceneController implements SceneController {
         }
         if (problem.getAnswer() == answer) {
             answerContainer.getChildren().clear();
-
-            Stage window = (Stage) root.getScene().getWindow();
 
             VBox container = new VBox();
 

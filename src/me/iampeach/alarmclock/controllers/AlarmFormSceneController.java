@@ -170,7 +170,8 @@ public class AlarmFormSceneController implements SceneController {
         String title = titleTextField.getText();
         if (type.equals("เตือนครั้งเดียว")) {
             LocalDate date = datePicker.getValue();
-            if (date.equals(LocalDate.now()) && (hour < now.getHour() || minute <= now.getMinute())) {
+            LocalTime time = LocalTime.of(hour, minute);
+            if (date.equals(LocalDate.now()) && !time.isAfter(LocalTime.now())) {
                 showErrorMessage("ไม่สามารถตั้งเวลาที่ผ่านไปแล้วได้");
                 return;
             }

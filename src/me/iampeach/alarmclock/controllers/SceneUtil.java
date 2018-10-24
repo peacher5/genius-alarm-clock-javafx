@@ -50,7 +50,7 @@ public final class SceneUtil {
     }
 
     private static void loadScene(Stage window, String fileName, OnInitSceneCallback callback) {
-        FXMLLoader viewLoader = new FXMLLoader(SceneUtil.class.getResource("../fxml/" + fileName));
+        FXMLLoader viewLoader = new FXMLLoader(SceneUtil.class.getResource("/me/iampeach/alarmclock/fxml/" + fileName));
         try {
             window.setScene(new Scene(viewLoader.load(), WIDTH, HEIGHT));
         } catch (IOException e) {
