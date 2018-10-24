@@ -14,8 +14,8 @@ public class AlarmTask extends TimerTask {
         this.title = title;
     }
 
-    public void setOnTaskExecute(Runnable callback) {
-        this.onTaskExecute = callback;
+    public void setOnTaskExecute(Runnable onTaskExecute) {
+        this.onTaskExecute = onTaskExecute;
     }
 
     @Override

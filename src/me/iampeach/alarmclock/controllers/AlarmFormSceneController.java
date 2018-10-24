@@ -1,10 +1,9 @@
 package me.iampeach.alarmclock.controllers;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DateCell;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -44,6 +43,7 @@ public class AlarmFormSceneController {
     private AlarmItem alarmItem;
     private RoundButton saveButton, cancelButton;
     private DaySelectorButton[] daySelectorButtons = new DaySelectorButton[7];
+    private Label errorMessageLabel = new Label();
 
     public void setAlarmItem(AlarmItem alarmItem) {
         this.alarmItem = alarmItem;
@@ -60,9 +60,9 @@ public class AlarmFormSceneController {
 
         initDatePicker();
 
-        // Set max length of title input to 30
+        // Set max length of title input to 15
         titleTextField.textProperty().addListener((ov, oldValue, newValue) -> {
-            if (newValue.length() > 30)
+            if (newValue.length() > 15)
                 titleTextField.setText(oldValue);
         });
 
@@ -81,16 +81,24 @@ public class AlarmFormSceneController {
 
         // Time input filter
         hourTextField.textProperty().addListener((ov, oldValue, newValue) -> {
+            hideErrorMessage();
             if (!newValue.matches("\\d{0,2}"))
                 hourTextField.setText(oldValue);
         });
         minuteTextField.textProperty().addListener((ov, oldValue, newValue) -> {
+            hideErrorMessage();
             if (!newValue.matches("\\d{0,2}"))
                 minuteTextField.setText(oldValue);
         });
 
-        String hour = String.format("%02d", alarmItem == null ? LocalTime.now().getHour() : alarmItem.getHour());
-        String minute = String.format("%02d", alarmItem == null ? LocalTime.now().getMinute() + 1 : alarmItem.getMinute() + 1);
+        LocalTime next;
+        if (alarmItem == null)
+            next = LocalTime.now().plusMinutes(1);
+        else
+            next = LocalTime.of(alarmItem.getHour(), alarmItem.getMinute()).plusMinutes(1);
+
+        String hour = String.format("%02d", next.getHour());
+        String minute = String.format("%02d", next.getMinute());
         hourTextField.setText(hour);
         minuteTextField.setText(minute);
 
@@ -103,6 +111,11 @@ public class AlarmFormSceneController {
             daysContainer.getChildren().add(button);
             daySelectorButtons[i] = button;
         }
+
+        BorderPane.setAlignment(errorMessageLabel, Pos.CENTER);
+        errorMessageLabel.setPadding(new Insets(0, 0, 16, 0));
+        errorMessageLabel.getStyleClass().add("alarm-form-error-text");
+        root.setBottom(errorMessageLabel);
     }
 
     private void initDatePicker() {
@@ -148,8 +161,7 @@ public class AlarmFormSceneController {
         int minute = Integer.parseInt(minuteTextField.getText());
         LocalTime now = LocalTime.now();
         if (hour < 0 || hour >= 24 || minute < 0 || minute >= 60) {
-            // TODO: alert
-            System.out.println("invalid time input");
+            showErrorMessage("เวลาต้องอยู่ในช่วง 00:00 ถึง 23:59");
             return;
         }
 
@@ -158,8 +170,7 @@ public class AlarmFormSceneController {
         if (type.equals("เตือนครั้งเดียว")) {
             LocalDate date = datePicker.getValue();
             if (date.equals(LocalDate.now()) && (hour < now.getHour() || minute <= now.getMinute())) {
-                // TODO: alert
-                System.out.println("invalid time input");
+                showErrorMessage("ไม่สามารถตั้งเวลาที่ผ่านไปแล้วได้");
                 return;
             }
             LocalDateTime dateTime = LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(), hour, minute);
@@ -170,8 +181,7 @@ public class AlarmFormSceneController {
                 if (button.isSelected())
                     repeats.add(button.getDay());
             if (repeats.isEmpty()) {
-                // TODO: alert
-                System.out.println("Repeat days cannot be empty");
+                showErrorMessage("เลือกวันเตือนซ้ำอย่างน้อย 1 วัน");
                 return;
             }
             AlarmItemList.getInstance().add(new RepeatAlarmItem(title, LocalTime.of(hour, minute), repeats));
@@ -181,12 +191,23 @@ public class AlarmFormSceneController {
         SceneUtil.loadMainScene(window);
     }
 
+    private void showErrorMessage(String message) {
+        errorMessageLabel.setText(message);
+        errorMessageLabel.setVisible(true);
+    }
+
+    private void hideErrorMessage() {
+        errorMessageLabel.setVisible(false);
+    }
+
     private void onCancelButtonClick() {
         Stage window = (Stage) root.getScene().getWindow();
         SceneUtil.loadMainScene(window);
     }
 
     private void onTypeToggle(String type) {
+        hideErrorMessage();
+
         int dateRow = 4, repeatRow = 8;
         if (type.equals("เตือนครั้งเดียว")) {
             showRow(dateRow, 30);
