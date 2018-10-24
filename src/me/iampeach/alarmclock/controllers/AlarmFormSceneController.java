@@ -95,7 +95,7 @@ public class AlarmFormSceneController {
         if (alarmItem == null)
             next = LocalTime.now().plusMinutes(1);
         else
-            next = LocalTime.of(alarmItem.getHour(), alarmItem.getMinute()).plusMinutes(1);
+            next = LocalTime.of(alarmItem.getHour(), alarmItem.getMinute());
 
         String hour = String.format("%02d", next.getHour());
         String minute = String.format("%02d", next.getMinute());
@@ -174,6 +174,7 @@ public class AlarmFormSceneController {
                 return;
             }
             LocalDateTime dateTime = LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(), hour, minute);
+            AlarmItemList.getInstance().remove(alarmItem);
             AlarmItemList.getInstance().add(new OnceAlarmItem(title, dateTime));
         } else {
             HashSet<DayOfWeek> repeats = new HashSet<>();
@@ -184,6 +185,7 @@ public class AlarmFormSceneController {
                 showErrorMessage("เลือกวันเตือนซ้ำอย่างน้อย 1 วัน");
                 return;
             }
+            AlarmItemList.getInstance().remove(alarmItem);
             AlarmItemList.getInstance().add(new RepeatAlarmItem(title, LocalTime.of(hour, minute), repeats));
         }
 

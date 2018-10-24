@@ -2,7 +2,6 @@ package me.iampeach.alarmclock.controllers;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -12,23 +11,18 @@ import me.iampeach.alarmclock.models.AlarmItemList;
 import me.iampeach.alarmclock.models.OnceAlarmItem;
 import me.iampeach.alarmclock.models.RepeatAlarmItem;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
-public class MainSceneController implements Initializable {
+public class MainSceneController {
     @FXML
     private BorderPane root;
     @FXML
     private VBox alarmContainer;
 
     private ObservableList<AlarmItem> alarmItems = AlarmItemList.getInstance().getList();
+    private Stage window;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        initUI();
-    }
+    public void initUI() {
+        window = (Stage) root.getScene().getWindow();
 
-    private void initUI() {
         RoundButton addButton = new RoundButton("เพิ่ม", ComponentUtil.getImage("alarm_add.png"));
         RoundButton settingsButton = new RoundButton(ComponentUtil.getImage("settings.png"));
 
@@ -53,6 +47,7 @@ public class MainSceneController implements Initializable {
             date = ((RepeatAlarmItem) item).getRepeatsText();
 
         AlarmListItem alarmListItem = new AlarmListItem(item.getTitle(), item.getTimeText(), date);
+        alarmListItem.setOnEditListener(() -> SceneUtil.loadAlarmFormScene(window, item));
         alarmListItem.setOnDeleteListener(() -> removeItem(alarmListItem, item));
 
         if (item instanceof OnceAlarmItem)
@@ -67,7 +62,6 @@ public class MainSceneController implements Initializable {
     }
 
     private void onAddButtonClick() {
-        Stage window = (Stage) root.getScene().getWindow();
         SceneUtil.loadAlarmFormScene(window);
     }
 

@@ -15,9 +15,12 @@ public final class SceneUtil {
     }
 
     public static void loadMainScene(Stage window) {
-        setScene(getLoader("../fxml/main_scene.fxml"), window);
+        FXMLLoader loader = getLoader("../fxml/main_scene.fxml");
+        setScene(loader, window);
         window.setMinWidth(WIDTH);
         window.setMinHeight(HEIGHT + 22);
+        MainSceneController controller = loader.getController();
+        controller.initUI();
     }
 
     public static void loadAlarmFormScene(Stage window, AlarmItem alarmItem) {
