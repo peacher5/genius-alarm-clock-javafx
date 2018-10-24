@@ -6,6 +6,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import me.iampeach.alarmclock.components.ActionButton;
 import me.iampeach.alarmclock.components.ComponentUtil;
@@ -26,6 +28,9 @@ public class AlarmSceneController implements SceneController {
     private ActionButton answerButton = new ActionButton("ตอบ", ComponentUtil.getImage("send.png"), "answer-button");
     private ActionButton incorrectButton = new ActionButton("ผิด!", ComponentUtil.getImage("incorrect.png"), "incorrect-button");
 
+    // Make it global to prevent GC clean this during in the scene
+    private MediaPlayer mediaPlayer;
+
     public void setTitle(String text) {
         title.setText(text);
     }
@@ -45,6 +50,11 @@ public class AlarmSceneController implements SceneController {
 
         answerButton.setOnMouseClicked(event -> onAnswer());
         answerContainer.getChildren().add(answerButton);
+
+        // Play alarm sound
+        Media media = new Media(getClass().getResource("../sounds/alarm.mp3").toString());
+        mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.play();
     }
 
     private void onAnswer() {
