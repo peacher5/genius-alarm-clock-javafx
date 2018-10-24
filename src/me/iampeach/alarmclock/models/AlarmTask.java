@@ -1,28 +1,32 @@
 package me.iampeach.alarmclock.models;
 
 import javafx.application.Platform;
+import javafx.stage.Stage;
+import me.iampeach.alarmclock.controllers.SceneUtil;
 
 import java.util.TimerTask;
 
 public class AlarmTask extends TimerTask {
-
     private String title;
-    private Runnable callback;
+    private Runnable onTaskExecute;
 
     public AlarmTask(String title) {
         this.title = title;
     }
 
     public void setOnTaskExecute(Runnable callback) {
-        this.callback = callback;
+        this.onTaskExecute = callback;
     }
 
     @Override
     public void run() {
-        // TODO
-        System.out.println(title);
+        if (onTaskExecute != null)
+            Platform.runLater(() -> onTaskExecute.run());
 
-        if (callback != null)
-            Platform.runLater(() -> callback.run());
+        Platform.runLater(() -> {
+            Stage window = new Stage();
+            SceneUtil.loadAlarmScene(window, title);
+            window.show();
+        });
     }
 }

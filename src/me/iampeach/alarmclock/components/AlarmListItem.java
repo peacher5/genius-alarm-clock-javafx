@@ -16,8 +16,8 @@ public class AlarmListItem extends AnchorPane {
     public AlarmListItem(String title, String time, String date) {
         ComponentUtil.loadFXML(this, "alarm_list_item.fxml");
 
-        deleteButton = new ActionButton("ลบ", ComponentUtil.getImagePath("delete.png"), "delete-button");
-        editButton = new ActionButton("แก้ไข", ComponentUtil.getImagePath("edit.png"), "edit-button");
+        deleteButton = new ActionButton("ลบ", ComponentUtil.getImage("delete.png"), "delete-button");
+        editButton = new ActionButton("แก้ไข", ComponentUtil.getImage("edit.png"), "edit-button");
         actionButtonContainer.getChildren().addAll(editButton, deleteButton);
 
         titleLabel.setText(title);

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="350.0" prefWidth="600.0" styleClass="alarm-scene-container" stylesheets="@../styles/main.css"
+            xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="me.iampeach.alarmclock.controllers.AlarmSceneController">
+    <children>
+        <VBox alignment="CENTER" prefHeight="40.0" styleClass="alarm-title-wrapper" AnchorPane.leftAnchor="0.0"
+              AnchorPane.topAnchor="16.0">
+            <children>
+                <Label fx:id="title" styleClass="alarm-title">
+                    <VBox.margin>
+                        <Insets left="16.0" right="24.0"/>
+                    </VBox.margin>
+                </Label>
+            </children>
+        </VBox>
+        <VBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+              AnchorPane.topAnchor="30.0">
+            <children>
+                <HBox alignment="CENTER">
+                    <children>
+                        <Label fx:id="mathProblemLabel" styleClass="math-problem-text"/>
+                        <ImageView fitHeight="74.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true">
+                            <HBox.margin>
+                                <Insets left="10.0"/>
+                            </HBox.margin>
+                            <image>
+                                <Image url="@../images/question.png"/>
+                            </image>
+                        </ImageView>
+                    </children>
+                    <VBox.margin>
+                        <Insets bottom="30.0"/>
+                    </VBox.margin>
+                </HBox>
+                <HBox fx:id="answerContainer" alignment="CENTER" prefHeight="120.0" prefWidth="200.0">
+                    <children>
+                        <TextField fx:id="answerTextField" alignment="CENTER" prefHeight="100.0" prefWidth="130.0"
+                                   styleClass="math-textfield"/>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

@@ -23,7 +23,7 @@ public final class SceneUtil {
     public static void loadAlarmFormScene(Stage window, AlarmItem alarmItem) {
         FXMLLoader loader = getLoader("../fxml/alarm_form_scene.fxml");
         setScene(loader, window);
-        AlarmFormController controller = loader.getController();
+        AlarmFormSceneController controller = loader.getController();
         if (alarmItem != null)
             controller.setAlarmItem(alarmItem);
         controller.initUI();
@@ -31,6 +31,14 @@ public final class SceneUtil {
 
     public static void loadAlarmFormScene(Stage window) {
         loadAlarmFormScene(window, null);
+    }
+
+    public static void loadAlarmScene(Stage window, String title) {
+        FXMLLoader loader = getLoader("../fxml/alarm_scene.fxml");
+        setScene(loader, window);
+        AlarmSceneController controller = loader.getController();
+        controller.setTitle(title);
+        controller.initUI();
     }
 
     private static void setScene(FXMLLoader viewLoader, Stage window) {

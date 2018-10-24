@@ -1,0 +1,49 @@
+.alarm-scene-container {
+    -fx-background-color: #404040;
+}
+
+.alarm-title-wrapper {
+    -fx-background-color: #ECECEC;
+    -fx-background-radius: 0 20px 20px 0;
+}
+
+.alarm-title {
+    -fx-text-fill: #404040;
+    -fx-font-weight: bold;
+    -fx-font-size: 18px;
+}
+
+.math-problem-text {
+    -fx-font-size: 68px;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-weight: bold;
+}
+
+.math-textfield {
+    -fx-font-size: 40px;
+    -fx-font-weight: bold;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+}
+
+.answer-button {
+    -fx-background-color: #6EC775;
+}
+
+.answer-button:hover {
+    -fx-background-color: #58B45F;
+}
+
+.answer-button:pressed {
+    -fx-background-color: #53A559;
+}
+
+.incorrect-button {
+    -fx-background-color: #D04747;
+}
+
+.correct-text {
+    -fx-text-fill: #F4D15C;
+    -fx-font-size: 28px;
+    -fx-padding: 0 0 30px 0;
+}

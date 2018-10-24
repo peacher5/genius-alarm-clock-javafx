@@ -15,7 +15,7 @@ import me.iampeach.alarmclock.models.RepeatAlarmItem;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MainController implements Initializable {
+public class MainSceneController implements Initializable {
     @FXML
     private BorderPane root;
     @FXML
@@ -29,8 +29,8 @@ public class MainController implements Initializable {
     }
 
     private void initUI() {
-        RoundButton addButton = new RoundButton("เพิ่ม", ComponentUtil.getImagePath("alarm_add.png"));
-        RoundButton settingsButton = new RoundButton(ComponentUtil.getImagePath("settings.png"));
+        RoundButton addButton = new RoundButton("เพิ่ม", ComponentUtil.getImage("alarm_add.png"));
+        RoundButton settingsButton = new RoundButton(ComponentUtil.getImage("settings.png"));
 
         AppBar appBar = new AppBar();
         appBar.addButton(addButton);

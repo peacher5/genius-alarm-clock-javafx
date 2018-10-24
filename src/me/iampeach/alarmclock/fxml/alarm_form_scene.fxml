@@ -5,7 +5,8 @@
 <?import javafx.scene.layout.*?>
 <BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
             stylesheets="@../styles/main.css" xmlns="http://javafx.com/javafx/10.0.1"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.iampeach.alarmclock.controllers.AlarmFormController">
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="me.iampeach.alarmclock.controllers.AlarmFormSceneController">
     <center>
         <GridPane fx:id="formGrid" alignment="TOP_CENTER" hgap="10.0" styleClass="form-grid"
                   BorderPane.alignment="CENTER">

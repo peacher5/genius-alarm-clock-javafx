@@ -1,6 +1,7 @@
 package me.iampeach.alarmclock.components;
 
 import javafx.fxml.FXMLLoader;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
@@ -22,7 +23,7 @@ public final class ComponentUtil {
         }
     }
 
-    public static String getImagePath(String fileName) {
-        return "me/iampeach/alarmclock/images/" + fileName;
+    public static Image getImage(String fileName) {
+        return new Image("me/iampeach/alarmclock/images/" + fileName);
     }
 }

@@ -27,7 +27,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 
-public class AlarmFormController {
+public class AlarmFormSceneController {
     @FXML
     private BorderPane root;
     @FXML
@@ -50,8 +50,8 @@ public class AlarmFormController {
     }
 
     public void initUI() {
-        saveButton = new RoundButton("บันทึก", ComponentUtil.getImagePath("save.png"), true);
-        cancelButton = new RoundButton("ยกเลิก", ComponentUtil.getImagePath("cancel.png"));
+        saveButton = new RoundButton("บันทึก", ComponentUtil.getImage("save.png"), true);
+        cancelButton = new RoundButton("ยกเลิก", ComponentUtil.getImage("cancel.png"));
 
         AppBar appBar = new AppBar();
         appBar.addButton(saveButton);

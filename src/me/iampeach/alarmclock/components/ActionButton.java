@@ -12,10 +12,10 @@ public class ActionButton extends AnchorPane {
     @FXML
     private Label textLabel;
 
-    public ActionButton(String text, String iconPath, String styleClass) {
+    public ActionButton(String text, Image icon, String styleClass) {
         ComponentUtil.loadFXML(this, "action_button.fxml");
         textLabel.setText(text);
-        iconView.setImage(new Image(iconPath));
+        iconView.setImage(icon);
         getStyleClass().add(styleClass);
     }
 }

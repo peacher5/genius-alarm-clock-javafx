@@ -20,7 +20,10 @@ public class RepeatAlarmItem extends AlarmItem {
         this.repeats = repeats;
 
         AlarmTask task = new AlarmTask(title + " - " + getTimeText());
-        task.setOnTaskExecute(this::activateAlarm);
+        task.setOnTaskExecute(() -> {
+            setTask(new AlarmTask(title + " - " + getTimeText()));
+            activateAlarm();
+        });
         setTask(task);
     }
 
