@@ -45,7 +45,7 @@
                 <VBox alignment="CENTER" styleClass="about-app-container">
                     <children>
                         <Label styleClass="about-app-name" text="Genius Alarm Clock"/>
-                        <Label styleClass="about-app-version" text="v.2018">
+                        <Label styleClass="about-app-version" text="v1.0">
                             <VBox.margin>
                                 <Insets top="-6.0"/>
                             </VBox.margin>
