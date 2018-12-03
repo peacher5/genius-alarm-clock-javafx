@@ -87,14 +87,16 @@ public class AlarmItemList {
         alarmItems.clear();
         try (Stream<String> stream = Files.lines(Paths.get(filePath))) {
             stream.forEach(line -> {
-                String[] parts = line.split(",");
-                if (parts.length == 3) {
+                if (line.startsWith("once")) {
+                    String[] parts = line.split(",", 3);
                     LocalDateTime dateTime = LocalDateTime.parse(parts[1]);
                     // Ignore if an alarm is passed
                     if (!dateTime.isBefore(LocalDateTime.now()))
                         alarmItems.add(new OnceAlarmItem(parts[2], dateTime));
-                } else if (parts.length == 4)
+                } else if (line.startsWith("repeat")) {
+                    String[] parts = line.split(",", 4);
                     alarmItems.add(new RepeatAlarmItem(parts[3], LocalTime.parse(parts[1]), toRepeatsSet(parts[2])));
+                }
             });
         } catch (IOException e) {
             // Do nothing if file not found
