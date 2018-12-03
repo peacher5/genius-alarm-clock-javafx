@@ -148,8 +148,11 @@ public class AlarmFormSceneController implements SceneController {
             }
         });
 
-        // Set default date to today
-        datePicker.setValue(LocalDate.now());
+        // Set date
+        if (alarmItem instanceof OnceAlarmItem)
+            datePicker.setValue(((OnceAlarmItem) alarmItem).getDateTime().toLocalDate());
+        else
+            datePicker.setValue(LocalDate.now());
 
         // Button click event
         saveButton.setOnMouseClicked(event -> onSaveButtonClick());
@@ -160,7 +163,6 @@ public class AlarmFormSceneController implements SceneController {
         // Validate time input
         int hour = Integer.parseInt(hourTextField.getText());
         int minute = Integer.parseInt(minuteTextField.getText());
-        LocalTime now = LocalTime.now();
         if (hour < 0 || hour >= 24 || minute < 0 || minute >= 60) {
             showErrorMessage("เวลาต้องอยู่ในช่วง 00:00 ถึง 23:59");
             return;
@@ -172,7 +174,7 @@ public class AlarmFormSceneController implements SceneController {
             LocalDate date = datePicker.getValue();
             LocalTime time = LocalTime.of(hour, minute);
             if (date.equals(LocalDate.now()) && !time.isAfter(LocalTime.now())) {
-                showErrorMessage("ไม่สามารถตั้งเวลาที่ผ่านไปแล้วได้");
+                showErrorMessage("ไม่สามารถตั้งวันเวลาที่ผ่านไปแล้วได้");
                 return;
             }
 
